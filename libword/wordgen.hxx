@@ -4,12 +4,18 @@
 #include <vector>
 #include <iterator>
 #include <algorithm>
+#include "libarg/cmdline.hxx"
 
 /*remember to use this code carefully*/
 
 #define DEBUG
+using namespace Cmdline;
 
-int generate(const char* keyword) {
+int generate(const char* keyword,int argc,char* argv[]) {
+    cxxopts::ParseResult result = parse(argc, argv);
+    if(result.count("generate")) {
+        
+    
     std::string fixed_string = keyword;
     std::string character_sets = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+=<>?/[]{}";
     int min_length = 6;
@@ -42,6 +48,10 @@ int generate(const char* keyword) {
     }
     file.close();
 
-    std::cout << "Wordlist generated and saved to " << output_file << std::endl;
+    std::cout << "Wordlist generated and saved to " << output_file << std::endl;}
+
+    else{
+        std::cerr<<"argc is not specified correctly"<<std::endl;
+    }
     return 0;
 }
